@@ -1,54 +1,30 @@
 import React from 'react';
 import Login from './compunint/Login';
 import Home from './compunint/Home';
+
+import { Routes, Route, Navigate } from 'react-router-dom';
 import './style/style.css';
+import Add from './compunint/Add';
+
+sessionStorage.setItem('login', false);
 function App() {
-  const userProto = {
-    userName: '',
-    password: '',
-  };
-  const [data, setData] = React.useState({});
-  const [success, setSuccess] = React.useState(false);
-  const [user, setUser] = React.useState(userProto);
-
-  // fetch data from api
+  const [auth, setAuth] = React.useState(false);
   React.useEffect(() => {
-    fetch('/api')
-      .then((res) => res.json())
-      .then((data) => setData(data));
-  }, []);
-
-  //Take input from Form
-  function changehandler(event) {
-    return setUser((olduser) => {
-      return {
-        ...olduser,
-        [event.target.name]: event.target.value,
-      };
-    });
-  }
-  function submithandler(event) {
-    event.preventDefault();
-    if (data.userName === user.userName && data.password === user.password) {
-      setSuccess(true);
-    } else {
-      setSuccess(false);
-      setUser(userProto);
-    }
-  }
-  console.log(success);
-
+    setAuth(sessionStorage.getItem('login'));
+  }, [1]);
+  console.log(auth);
   return (
     <div className='App'>
-      {!success ? (
-        <Login
-          user={user}
-          changehandler={changehandler}
-          submithandler={submithandler}
+      <Routes>
+        <Route exact path='/' element={<Login />} />
+        <Route
+          exact
+          path='/home'
+          element={auth ? <Home auth={auth} /> : <Navigate to='/' />}
         />
-      ) : (
-        <Home />
-      )}
+        <Route exact path='/add' element={<Add auth={auth} />} />
+        <Route path='*' element={<Navigate to='/' replace />} />
+      </Routes>
     </div>
   );
 }
