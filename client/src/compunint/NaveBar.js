@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import plus from './../imgs/plus.png';
 import home from './../imgs/home.png';
 
-function NaveBar() {
+function NaveBar(props) {
   return (
     <nav>
       <ul className='nav--ul'>
@@ -13,9 +13,12 @@ function NaveBar() {
           </Link>
         </li>
         <li>
-          <Link to='/add'>
-            <img className='nav--img link' src={plus} alt='add' />
-          </Link>
+          <img
+            className='nav--img link'
+            onClick={props.clickhandler}
+            src={plus}
+            alt='add'
+          />
         </li>
       </ul>
     </nav>

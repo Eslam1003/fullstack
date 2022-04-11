@@ -1,19 +1,17 @@
+import axios from 'axios';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-function Login(props) {
+function Login() {
   const userProto = {
     userName: '',
     password: '',
   };
-  const [data, setData] = React.useState({});
-  const [success, setSuccess] = React.useState(false);
+  const [data, setData] = React.useState();
   const [user, setUser] = React.useState(userProto);
 
   // fetch data from api
   React.useEffect(() => {
-    fetch('/login')
-      .then((res) => res.json())
-      .then((data) => setData(data));
+    axios.get('/login').then((res) => setData(res.data));
   }, []);
 
   //Take input from Form
@@ -29,13 +27,10 @@ function Login(props) {
   function submithandler(event) {
     event.preventDefault();
     if (data.userName === user.userName && data.password === user.password) {
-      sessionStorage.clear();
-      sessionStorage.setItem('login', true);
-      setSuccess(true);
       navigate('/home');
     } else {
       sessionStorage.setItem('login', false);
-      setSuccess(false);
+
       setUser(userProto);
     }
   }

@@ -27,13 +27,12 @@ app.get('/login', (req, res) => {
 app.get('/home', (req, res) => {
   cst.find().then((data) => {
     res.json(data);
-    console.log(data);
   });
 });
 
-app.post('/add', (req, res) => {
+app.post('/add', async (req, res) => {
   const { name, cost } = req.body;
-  save(name, cost);
+  await save(name, cost);
 });
 
 // All other GET requests not handled before will return our React app

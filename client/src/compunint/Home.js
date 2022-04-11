@@ -1,25 +1,57 @@
 import React, { useEffect } from 'react';
-import { Navigate } from 'react-router-dom';
 import NaveBar from './NaveBar';
 import Custmoer from './Custmoer';
 import axios from 'axios';
+import Add from './Add';
+import { Link } from 'react-router-dom';
 
-function Home({ auth }) {
-  const [data, setData] = React.useState([]);
+function Home() {
+  let user = {
+    name: '',
+    cost: '',
+  };
+  const [getdata, setGetdata] = React.useState([]);
+  const [data, setData] = React.useState(user);
+  const [show, setShow] = React.useState(false);
+
   useEffect(() => {
     axios.get('/home').then((res) => {
-      setData(res.data);
+      setGetdata(res.data);
     });
-  }, []);
-  let cst = data.map((cst) => {
-    return <Custmoer name={cst.name} cost={cst.cost} key={cst._id} />;
+  }, [getdata]);
+  let cst = getdata.map((cst) => {
+    return (
+      <div>
+        <Custmoer name={cst.name} cost={cst.cost} key={cst._id} />
+        <div>
+          <Link to='/Bils'>Bils</Link>
+        </div>
+      </div>
+    );
   });
-  if (!auth) {
-    return <Navigate to='/' replace />;
+  function clickhandler() {
+    if (show) {
+      setShow(false);
+    } else {
+      setShow(true);
+    }
   }
+
+  function submithandler(event) {
+    event.preventDefault();
+    axios.post('/add', data);
+    setData(user);
+    setShow(false);
+  }
+
   return (
     <div className='body--container'>
-      <NaveBar />
+      <NaveBar clickhandler={clickhandler} />
+      <div>
+        {show && (
+          <Add submithandler={submithandler} setData={setData} data={data} />
+        )}
+      </div>
       <div className='custmoer--contanier'>{cst}</div>
     </div>
   );
