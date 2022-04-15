@@ -1,13 +1,15 @@
 import React from 'react';
 
 function Custmoer(props) {
-  const { name, cost } = props;
+  const { name, hand } = props;
   return (
     <div className='custmoer'>
       <div className='custmoer--info'>
         <p>{name}</p>
-        <p>{cost}</p>
       </div>
+      <p onClick={hand} className='custmoer--brn'>
+        +
+      </p>
     </div>
   );
 }

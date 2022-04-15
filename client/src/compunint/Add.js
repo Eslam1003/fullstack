@@ -11,27 +11,18 @@ function Add(props) {
   }
 
   return (
-    <div>
-      <div className='add--contanier'>
-        <h5>Add New cust</h5>
-        <form onSubmit={props.submithandler}>
-          <input
-            type='text'
-            name='name'
-            value={props.data.name}
-            placeholder='Cst Name'
-            onChange={changehandler}
-          />
-          <input
-            type='text'
-            name='cost'
-            placeholder='total'
-            value={props.data.cost}
-            onChange={changehandler}
-          />
-          <button>save</button>
-        </form>
-      </div>
+    <div className='add--contanier'>
+      <form onSubmit={props.submithandler}>
+        <input
+          type='text'
+          name='name'
+          value={props.data.name}
+          placeholder='Cst Name'
+          onChange={changehandler}
+        />
+
+        <button>add</button>
+      </form>
     </div>
   );
 }

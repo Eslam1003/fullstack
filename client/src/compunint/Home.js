@@ -3,7 +3,7 @@ import NaveBar from './NaveBar';
 import Custmoer from './Custmoer';
 import axios from 'axios';
 import Add from './Add';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function Home() {
   let user = {
@@ -13,19 +13,19 @@ function Home() {
   const [getdata, setGetdata] = React.useState([]);
   const [data, setData] = React.useState(user);
   const [show, setShow] = React.useState(false);
-
+  let navigate = useNavigate();
+  function hand(cst) {
+    navigate(`/Bils/${cst._id}`);
+  }
   useEffect(() => {
     axios.get('/home').then((res) => {
       setGetdata(res.data);
     });
-  }, [getdata]);
+  }, [data]);
   let cst = getdata.map((cst) => {
     return (
-      <div>
-        <Custmoer name={cst.name} cost={cst.cost} key={cst._id} />
-        <div>
-          <Link to='/Bils'>Bils</Link>
-        </div>
+      <div key={cst._id}>
+        <Custmoer name={cst.name} cost={cst.cost} hand={() => hand(cst)} />
       </div>
     );
   });
@@ -46,8 +46,8 @@ function Home() {
 
   return (
     <div className='body--container'>
-      <NaveBar clickhandler={clickhandler} />
       <div>
+        <NaveBar clickhandler={clickhandler} />
         {show && (
           <Add submithandler={submithandler} setData={setData} data={data} />
         )}

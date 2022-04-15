@@ -34,6 +34,11 @@ app.post('/add', async (req, res) => {
   const { name, cost } = req.body;
   await save(name, cost);
 });
+app.get('/Bils/:id', async (req, res) => {
+  let id = req.params.id;
+  let data = await cst.findById(id);
+  res.json(data);
+});
 
 // All other GET requests not handled before will return our React app
 app.get('*', (req, res) => {
