@@ -191,14 +191,11 @@ nav {
 
 @media screen and (min-width: 368px) and (max-width: 400px) {
   .login--contanier {
-    width: 300px;
+    width: 350px;
   }
   .body--container {
-    width: 100%;
-    height: 100vh;
+    width: 90%;
+    height: 80%;
     position: absolute;
-    top: 0;
-    left: 0;
-    transform: translate(0, 0);
   }
 }
