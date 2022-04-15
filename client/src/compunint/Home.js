@@ -14,14 +14,18 @@ function Home() {
   const [data, setData] = React.useState(user);
   const [show, setShow] = React.useState(false);
   let navigate = useNavigate();
+
   function hand(cst) {
     navigate(`/Bils/${cst._id}`);
   }
+
+  //get data from api
   useEffect(() => {
     axios.get('/home').then((res) => {
       setGetdata(res.data);
     });
   }, [data]);
+  //log the data to show it
   let cst = getdata.map((cst) => {
     return (
       <div key={cst._id}>
@@ -29,6 +33,7 @@ function Home() {
       </div>
     );
   });
+  //togole to set cst
   function clickhandler() {
     if (show) {
       setShow(false);

@@ -1,4 +1,3 @@
-import React from 'react';
 import Login from './compunint/Login';
 import Home from './compunint/Home';
 import { Routes, Route } from 'react-router-dom';
