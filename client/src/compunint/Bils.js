@@ -11,7 +11,7 @@ function Bils() {
   let url = window.location.href.slice(21);
   useEffect(() => {
     axios.get(url, { name: 'eslam' }).then((res) => setData(res.data));
-  }, [data]);
+  }, [1]);
 
   function clickhandler() {
     if (show) {
@@ -22,12 +22,11 @@ function Bils() {
   }
   function submit(e) {
     e.preventDefault();
-
     setShow(false);
   }
   return (
     <div className='body--container'>
-      <h4 className='bills--name'>{data.name}</h4>
+      <h4 className='bills--name'>Name:{data.name}</h4>
       <NaveBar clickhandler={clickhandler} />
       {show && (
         <div className='form--container'>
