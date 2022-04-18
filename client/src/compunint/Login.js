@@ -1,50 +1,35 @@
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+
 function Login() {
-  const userProto = {
+  let user = {
     userName: '',
     password: '',
   };
-  const [data, setData] = React.useState();
-  const [user, setUser] = React.useState(userProto);
-
-  // fetch data from api
-  React.useEffect(() => {
-    axios.get('/login').then((res) => setData(res.data));
-  }, []);
-
-  //Take input from Form
-  function changehandler(event) {
-    return setUser((olduser) => {
+  const [sucsess, setsucsess] = useState(false);
+  const [userlogin, setUserlogin] = useState(user);
+  function changhandler(e) {
+    setUserlogin((prevalu) => {
       return {
-        ...olduser,
-        [event.target.name]: event.target.value,
+        ...prevalu,
+        [e.target.name]: e.target.value,
       };
     });
   }
-  const navigate = useNavigate();
-  function submithandler(event) {
-    event.preventDefault();
-    if (data.userName === user.userName && data.password === user.password) {
-      navigate('/home');
-    } else {
-      sessionStorage.setItem('login', false);
-
-      setUser(userProto);
-    }
-  }
+  useEffect(() => {
+    axios.post('/login', userlogin).then((res) => setsucsess(res.data));
+  }, [userlogin]);
+  sessionStorage.setItem('login', sucsess);
 
   return (
     <div className='login--contanier'>
-      <form className='login--form' onSubmit={submithandler}>
+      <form className='login--form'>
         <input
           className='login--input'
           type='text'
           name='userName'
+          onChange={changhandler}
           id='userName'
-          value={user.userName}
-          onChange={changehandler}
           placeholder='UserName'
         />
         <input
@@ -53,8 +38,7 @@ function Login() {
           type='password'
           name='password'
           id='password'
-          onChange={changehandler}
-          value={user.password}
+          onChange={changhandler}
         />
         <button className='login--btn'>Log in</button>
       </form>

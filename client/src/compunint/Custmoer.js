@@ -1,13 +1,13 @@
 import React from 'react';
 
 function Custmoer(props) {
-  const { name, hand } = props;
+  const { name } = props.cst;
   return (
     <div className='custmoer'>
       <div className='custmoer--info'>
         <p>{name}</p>
       </div>
-      <p onClick={hand} className='custmoer--brn'>
+      <p className='custmoer--brn' onClick={() => props.bills(name)}>
         +
       </p>
     </div>

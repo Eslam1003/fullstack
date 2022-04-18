@@ -54,29 +54,7 @@ body {
   color: white;
   font-size: 25px;
 }
-nav {
-  position: sticky;
-  top: 0px;
-  z-index: 2;
-}
-.nav--ul {
-  margin: 0px auto;
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  position: absolute;
-  top: 10px;
-}
 
-.nav--img {
-  width: 30px;
-}
-.link {
-  text-decoration: none;
-  font-size: 25px;
-  color: rgb(14, 0, 0);
-  margin: 10px;
-}
 .body--container {
   width: 90%;
   height: 80%;
@@ -93,6 +71,24 @@ nav {
   box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
     rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
     rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+.nav--ul {
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: row-reverse;
+  padding: 10px;
+  border-bottom: 1px solid #666;
+}
+.nav--ul > li {
+  cursor: pointer;
+  border: 2px solid #666;
+
+  padding: 10px;
+  border-radius: 10px;
+}
+.nav--ul > li:hover {
+  background-color: #666;
+  color: white;
 }
 
 .custmoer--contanier {
@@ -118,77 +114,40 @@ nav {
   font-weight: bold;
   cursor: pointer;
 }
-
-.add--contanier {
-  background-color: white;
-  padding: 10px;
-  width: 200px;
-  border-radius: 7px;
-  position: absolute;
-  left: 50px;
-  top: 30px;
-}
-.add--contanier > form {
-  display: flex;
-  align-items: center;
-}
-.add--contanier > h5 {
-  text-align: center;
-  color: rgb(44, 176, 190);
-  font-size: 20px;
-  padding: 10px;
-}
-.add--contanier > form > input {
-  width: 100%;
+.cst--input {
+  width: 90%;
   height: 30px;
-  border-radius: 7px;
-  border: 1px solid rgb(0, 231, 255);
-  padding: 5px;
-  font-size: 18px;
-}
-.add--contanier > form > input:focus {
-  outline: none;
-}
-.add--contanier > form > button {
-  background-color: rgb(0, 231, 255);
-  color: white;
-  padding: 7px 20px;
-  border-radius: 7px;
+  border-radius: 5px;
   border: none;
-  margin-left: 2px;
+  font-size: 20px;
+  padding: 5px;
 }
-.add--contanier > form > button:hover {
-  border: 1px solid rgb(44, 176, 190);
-  background-color: white;
-  color: rgb(0, 231, 255);
+.cst--input:focus {
+  outline: none;
+  border: 1px solid gray;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+.cst--add {
+  display: flex;
+  justify-content: space-evenly;
+  position: absolute;
+  margin-bottom: 5px;
+  bottom: 0px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 10px;
+  padding: 10px;
+  width: 90%;
+  border: 1px solid #666;
+}
+.add--btn {
+  padding: 5px 20px;
+  background-color: #eee;
+}
+.bills {
+  width: 30px;
   cursor: pointer;
 }
-.bills--name {
-  text-align: center;
-}
-.form--container {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(114, 114, 114, 0.336);
-}
-.form--fild {
-  background-color: white;
-  padding: 20px;
-  border-radius: 10px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  display: grid;
-}
-.form--fild > input {
-  margin: 5px;
-  height: 30px;
-  width: 200px;
-  padding: 5px;
-}
-
 @media screen and (min-width: 368px) and (max-width: 400px) {
   .login--contanier {
     width: 350px;

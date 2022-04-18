@@ -1,65 +1,67 @@
-import React, { useEffect } from 'react';
-import NaveBar from './NaveBar';
+import React from 'react';
+import Bils from './Bils';
 import Custmoer from './Custmoer';
-import axios from 'axios';
+import Navbar from './Navbar';
 import Add from './Add';
-import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 function Home() {
-  let user = {
+  const [cst, setCst] = React.useState([]);
+  const [billname, setBillname] = React.useState();
+  const [comp, setComp] = React.useState({
+    home: true,
+    bills: false,
+    add: false,
+  });
+  const [add, setAdd] = React.useState({
     name: '',
     cost: '',
-  };
-  const [getdata, setGetdata] = React.useState([]);
-  const [data, setData] = React.useState(user);
-  const [show, setShow] = React.useState(false);
-  let navigate = useNavigate();
-
-  function hand(cst) {
-    navigate(`/Bils/${cst._id}`);
-  }
-
-  //get data from api
-  useEffect(() => {
-    axios.get('/home').then((res) => {
-      setGetdata(res.data);
-    });
-  }, [data]);
-  //log the data to show it
-  let cst = getdata.map((cst) => {
-    return (
-      <div key={cst._id}>
-        <Custmoer name={cst.name} cost={cst.cost} hand={() => hand(cst)} />
-      </div>
-    );
+    date: '',
+    item: '',
   });
-  //togole to set cst
-  function clickhandler() {
-    if (show) {
-      setShow(false);
-    } else {
-      setShow(true);
-    }
+
+  React.useEffect(() => {
+    axios.get('/home').then((res) =>
+      setCst((prevalu) => {
+        return res.data;
+      })
+    );
+  }, [comp]);
+
+  function clickhandler(e) {
+    document.getElementById(e.target.id).classList.toggle('active');
+    return setComp((prevalu) => {
+      return {
+        [e.target.id]: true,
+      };
+    });
+  }
+  function bills(name) {
+    setComp({
+      home: false,
+      bills: true,
+      add: false,
+    });
+    setBillname(name);
   }
 
-  function submithandler(event) {
+  let custmor = cst.map((cst) => {
+    return <Custmoer key={cst._id} cst={cst} bills={bills} />;
+  });
+  function submit(event) {
     event.preventDefault();
-    axios.post('/add', data);
-    setData(user);
-    setShow(false);
+    axios.post('/add', add);
   }
 
   return (
     <div className='body--container'>
-      <div>
-        <NaveBar clickhandler={clickhandler} />
-        {show && (
-          <Add submithandler={submithandler} setData={setData} data={data} />
-        )}
+      <Navbar clickhandler={clickhandler} comp={comp} />
+      <div className='custmoer--contanier'>
+        {comp.home && custmor}
+        {comp.bills && <Bils billname={billname} />}
+        {comp.add && <Add submit={submit} setAdd={setAdd} add={add} />}
       </div>
-      <div className='custmoer--contanier'>{cst}</div>
     </div>
   );
 }
-
 export default Home;

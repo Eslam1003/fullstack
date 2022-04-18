@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const path = require('path');
 const cst = require('./modul/cst');
+
 mongoose
   .connect(
     'mongodb+srv://eslam:mohamed_1993@cluster0.jl2e4.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
@@ -14,15 +15,23 @@ mongoose
     console.log(err);
   });
 
+const app = express();
 // middel ware
 const PORT = process.env.PORT || 3001;
-const app = express();
+
 app.use(express.static(path.resolve(__dirname, '../client/build')));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
+
 //routs
-app.get('/login', (req, res) => {
-  res.json({ userName: 'hamdy', password: '01273050924' });
+app.post('/login', (req, res) => {
+  let user = { userName: 'hamdy', password: '01273050924' };
+  let { userName, password } = req.body;
+  if (userName === user.userName && password && user.password) {
+    res.json(true);
+  } else {
+    res.json(false);
+  }
 });
 app.get('/home', (req, res) => {
   cst.find().then((data) => {
@@ -32,6 +41,7 @@ app.get('/home', (req, res) => {
 
 app.post('/add', async (req, res) => {
   const { name, cost } = req.body;
+  console.log(req.body);
   await save(name, cost);
 });
 app.get('/Bils/:id', async (req, res) => {

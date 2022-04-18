@@ -1,9 +1,11 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import img from './../imgs/plus.png';
+import save from './../imgs/save.png';
 
-function Add(props) {
+const Add = (props) => {
+  const [show, setShow] = React.useState(false);
   function changehandler(event) {
-    props.setData((prevalu) => {
+    return props.setAdd((prevalu) => {
       return {
         ...prevalu,
         [event.target.name]: event.target.value,
@@ -12,20 +14,66 @@ function Add(props) {
   }
 
   return (
-    <div className='add--contanier'>
-      <form onSubmit={props.submithandler}>
+    <div>
+      <form className='form--fild'>
+        <label htmlFor='name'>Name</label>
         <input
+          onChange={changehandler}
+          className='cst--input'
           type='text'
           name='name'
-          value={props.data.name}
-          placeholder='Cst Name'
-          onChange={changehandler}
+          placeholder='name'
         />
+        <label htmlFor='name'>cost</label>
+        <input
+          onChange={changehandler}
+          className='cst--input'
+          type='text'
+          name='cost'
+          placeholder='cost'
+        />
+        {show && (
+          <div>
+            <div>
+              <label htmlFor='name'>date</label>
 
-        <button>add</button>
+              <input
+                onChange={changehandler}
+                className=''
+                type='date'
+                name='date'
+                placeholder='cost'
+              />
+            </div>
+            <div>
+              <label htmlFor='item 1'>item 1</label>
+
+              <input
+                onChange={changehandler}
+                className=''
+                type='text'
+                name='item'
+                placeholder='item 1'
+              />
+            </div>
+          </div>
+        )}
+        <div className='cst--add'>
+          <button onClick={props.submit}>
+            <img src={save} alt='' className='bills' />
+          </button>
+          <img
+            onClick={() => {
+              setShow(!show);
+            }}
+            src={img}
+            alt='asdf'
+            className='bills'
+          />
+        </div>
       </form>
     </div>
   );
-}
+};
 
 export default Add;
