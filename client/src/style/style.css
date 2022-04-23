@@ -92,9 +92,6 @@ body {
 }
 
 .custmoer--contanier {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 10px;
   width: calc(100% - 90px);
   margin: 20px auto;
 }
@@ -148,6 +145,28 @@ body {
   width: 30px;
   cursor: pointer;
 }
+.bills--container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid black;
+}
+.bills--name {
+  font-size: 20px;
+}
+.addNewBill {
+  cursor: pointer;
+  border: 2px solid #666;
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 5px;
+}
+.addNewBill:hover {
+  background-color: #666;
+  color: white;
+}
+
 @media screen and (min-width: 368px) and (max-width: 400px) {
   .login--contanier {
     width: 350px;

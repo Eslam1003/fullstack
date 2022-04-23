@@ -8,6 +8,7 @@ import axios from 'axios';
 function Home() {
   const [cst, setCst] = React.useState([]);
   const [billname, setBillname] = React.useState();
+  const [show, setShow] = React.useState(false);
   const [comp, setComp] = React.useState({
     home: true,
     bills: false,
@@ -16,8 +17,14 @@ function Home() {
   const [add, setAdd] = React.useState({
     name: '',
     cost: '',
+  });
+  const [bill, setBill] = React.useState({
+    name: '',
     date: '',
-    item: '',
+    item1: '',
+    item2: '',
+    item3: '',
+    check: false,
   });
 
   React.useEffect(() => {
@@ -52,13 +59,27 @@ function Home() {
     event.preventDefault();
     axios.post('/add', add);
   }
+  function submitbils(event) {
+    event.preventDefault();
+    axios.post('/Bills', bill);
+    setShow(false);
+  }
 
   return (
     <div className='body--container'>
       <Navbar clickhandler={clickhandler} comp={comp} />
       <div className='custmoer--contanier'>
         {comp.home && custmor}
-        {comp.bills && <Bils billname={billname} />}
+        {comp.bills && (
+          <Bils
+            billname={billname}
+            bill={bill}
+            setBill={setBill}
+            submitbils={submitbils}
+            show={show}
+            setShow={setShow}
+          />
+        )}
         {comp.add && <Add submit={submit} setAdd={setAdd} add={add} />}
       </div>
     </div>

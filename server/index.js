@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const path = require('path');
 const cst = require('./modul/cst');
+const Bill = require('./modul/bills');
 
 mongoose
   .connect(
@@ -38,26 +39,46 @@ app.get('/home', (req, res) => {
     res.json(data);
   });
 });
+app.post('/getbills', (req, res) => {
+  Bill.find(req.body).then((data) => {
+    res.json(data);
+  });
+});
 
 app.post('/add', async (req, res) => {
-  const { name, cost } = req.body;
-  console.log(req.body);
-  await save(name, cost);
-});
-app.get('/Bils/:id', async (req, res) => {
-  let id = req.params.id;
-  let data = await cst.findById(id);
-  res.json(data);
+  const { name, cost, date, item1, item2, item3, check } = req.body;
+
+  // save fun
+
+  await save(name, cost, date, item1, item2, item3, check);
 });
 
+app.post('/Bills', async (req, res) => {
+  const { name, date, item1, item2, item3, check } = req.body;
+  const bill = new Bill({
+    name: name.name,
+    date: date,
+    item1: item1,
+    item2: item2,
+    item3: item3,
+    check: check,
+  });
+  try {
+    await bill.save();
+    console.log(bill);
+  } catch (error) {
+    console.log(error);
+  }
+});
 // All other GET requests not handled before will return our React app
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
 });
-async function save(name, cost) {
+async function save(name, cost, date, item1, item2, item3, checked) {
   let Cst = new cst({
     name: name,
     cost: cost,
+    bills: [{ date, item1, item2, item3, checked }],
   });
   try {
     await Cst.save();

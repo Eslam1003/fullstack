@@ -7,7 +7,7 @@ function Custmoer(props) {
       <div className='custmoer--info'>
         <p>{name}</p>
       </div>
-      <p className='custmoer--brn' onClick={() => props.bills(name)}>
+      <p className='custmoer--brn' onClick={() => props.bills(props.cst)}>
         +
       </p>
     </div>
