@@ -52,7 +52,22 @@ app.post('/add', async (req, res) => {
 
   await save(name, cost, date, item1, item2, item3, check);
 });
-
+app.post('/edit', async (req, res) => {
+  const { name, date, item1, item2, item3, check, _id } = req.body;
+  await Bill.findOneAndUpdate(
+    { _id: _id },
+    {
+      date: date,
+      item1: item1,
+      item2: item2,
+      item3: item3,
+      check: check,
+    }
+  );
+});
+app.post('/delet', async (req, res) => {
+  await Bill.findByIdAndDelete({ _id: req.body._id });
+});
 app.post('/Bills', async (req, res) => {
   const { name, date, item1, item2, item3, check } = req.body;
   const bill = new Bill({

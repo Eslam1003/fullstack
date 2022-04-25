@@ -16,7 +16,7 @@ const bill = new mongoose.Schema({
     type: String,
   },
   check: {
-    type: String,
+    type: Boolean,
   },
 });
 module.exports = mongoose.model('Bills', bill);
