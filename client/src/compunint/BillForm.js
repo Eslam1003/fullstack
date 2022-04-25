@@ -13,13 +13,14 @@ function BillForm(props) {
 
   return (
     <div className='form--container'>
-      <form>
-        <div>
-          <label htmlFor='name'>Name</label>
+      <form className='form'>
+        <h5 className='form--heading'>Bill information</h5>
+        <div className='form--items'>
+          <label htmlFor='name'>Name :</label>
           <input type='text' value={props.billname.name} disabled />
         </div>
-        <div>
-          <label htmlFor='date'>date</label>
+        <div className='form--items'>
+          <label htmlFor='date'>Date :</label>
           <input
             value={props.bill.date}
             onChange={changehandler}
@@ -29,7 +30,7 @@ function BillForm(props) {
             placeholder='cost'
           />
         </div>
-        <div>
+        <div className='form--items'>
           <label htmlFor='item1'>item 1</label>
           <input
             value={props.bill.item1}
@@ -40,7 +41,7 @@ function BillForm(props) {
             placeholder='item 1'
           />
         </div>
-        <div>
+        <div className='form--items'>
           <label htmlFor='item2'>item 2</label>
           <input
             value={props.bill.item2}
@@ -51,7 +52,7 @@ function BillForm(props) {
             placeholder='item 2'
           />
         </div>
-        <div>
+        <div className='form--items'>
           <label htmlFor='item3'>item 3</label>
           <input
             value={props.bill.item3}
@@ -62,7 +63,7 @@ function BillForm(props) {
             placeholder='item 3'
           />
         </div>
-        <div>
+        <div className='form--items'>
           <label htmlFor='checkbox'>bayed</label>
           <input
             onChange={changehandler}
@@ -77,14 +78,7 @@ function BillForm(props) {
         ) : (
           <button onClick={props.editbils}>Edit</button>
         )}
-        <button
-          onClick={() => {
-            props.setShow(false);
-            props.setEdit(false);
-          }}
-        >
-          Cansel
-        </button>
+        <button onClick={props.cansl}>Cansel</button>
         <button onClick={props.delet}>Delet</button>
       </form>
     </div>

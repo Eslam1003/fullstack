@@ -124,51 +124,63 @@ function Home() {
     axios.post('/Bills', bill);
     setShow(false);
     setEdit(false);
+    setBill(billtemp);
   }
   function editbils(event) {
     event.preventDefault();
     axios.post('/edit', bill);
     setShow(false);
     setEdit(false);
+    setBill(billtemp);
   }
   function delet(event) {
     event.preventDefault();
     axios.post('/delet', bill);
     setShow(false);
     setEdit(false);
+    setBill(billtemp);
+  }
+  function cansl() {
+    setShow(false);
+    setEdit(false);
+    setBill(billtemp);
   }
 
   return (
-    <div className='body--container'>
-      <Navbar clickhandler={clickhandler} comp={comp} />
-      <div className='custmoer--contanier'>
-        {comp.home && custmor}
-        {comp.bills && (
-          <Bils
-            billname={billname}
-            submitbils={submitbils}
-            show={show}
-            setShow={setShow}
-            bill={bill}
-            setBill={setBill}
-            bils={bils}
-          />
-        )}
-        {comp.bills && show && (
-          <BillForm
-            submitbils={submitbils}
-            bill={bill}
-            setBill={setBill}
-            billname={billname}
-            show={show}
-            setShow={setShow}
-            edit={edit}
-            setEdit={setEdit}
-            editbils={editbils}
-            delet={delet}
-          />
-        )}
-        {comp.add && <Add submit={submit} setAdd={setAdd} add={add} />}
+    <div>
+      {comp.bills && show && (
+        <BillForm
+          submitbils={submitbils}
+          bill={bill}
+          setBill={setBill}
+          billname={billname}
+          show={show}
+          setShow={setShow}
+          edit={edit}
+          setEdit={setEdit}
+          editbils={editbils}
+          delet={delet}
+          billtemp={billtemp}
+          cansl={cansl}
+        />
+      )}
+      <div className='body--container'>
+        <Navbar clickhandler={clickhandler} comp={comp} />
+        <div className='custmoer--contanier'>
+          {comp.home && custmor}
+          {comp.bills && (
+            <Bils
+              billname={billname}
+              submitbils={submitbils}
+              show={show}
+              setShow={setShow}
+              bill={bill}
+              setBill={setBill}
+              bils={bils}
+            />
+          )}
+          {comp.add && <Add submit={submit} setAdd={setAdd} add={add} />}
+        </div>
       </div>
     </div>
   );
